@@ -1,0 +1,258 @@
+//package com.example.n20dccn143_levietthanh.activities;
+//
+//import static com.example.n20dccn143_levietthanh.activities.AMainActivity.tokenStaff;
+//import static com.example.n20dccn143_levietthanh.activities.CouponListAdminActivity.getAllCoupon;
+//import static com.example.n20dccn143_levietthanh.apis.ApiService.apiService;
+//
+//import android.app.ProgressDialog;
+//import android.content.Intent;
+//import android.graphics.Bitmap;
+//import android.net.Uri;
+//import android.os.Build;
+//import android.os.Bundle;
+//import android.provider.MediaStore;
+//import android.util.Log;
+//import android.view.View;
+//import android.widget.Button;
+//import android.widget.CompoundButton;
+//import android.widget.ImageView;
+//import android.widget.ListView;
+//import android.widget.Toast;
+//
+//import androidx.annotation.Nullable;
+//import androidx.annotation.RequiresApi;
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.appcompat.widget.SwitchCompat;
+//
+//import com.example.n20dccn143_levietthanh.R;
+//import com.example.n20dccn143_levietthanh.adapters.CouponAdapter;
+//import com.example.n20dccn143_levietthanh.apis.Const;
+//import com.example.n20dccn143_levietthanh.functions.RealPathUtil;
+//import com.example.n20dccn143_levietthanh.response.ApiResponse;
+//import com.google.android.material.textfield.TextInputEditText;
+//
+//import org.json.JSONException;
+//import org.json.JSONObject;
+//
+//import java.io.File;
+//import java.io.IOException;
+//
+//import okhttp3.MediaType;
+//import okhttp3.MultipartBody;
+//import okhttp3.RequestBody;
+//import retrofit2.Call;
+//import retrofit2.Callback;
+//import retrofit2.Response;
+//
+//public class CouponEditingAdminActivity extends AppCompatActivity {
+//    private ImageView ivCouponImg, ivBack;
+//    Button btnUploadImg, btnAddCoupon;
+//
+//    private TextInputEditText etCouponType, etCouponQuantity, etCouponValue, etCouponMinium, etCouponContent, etDateRange;
+//    private SwitchCompat swStatus;
+//    private int GALLERY_REQ_CODE = 2000;
+//    private Uri selectedImageUri;
+//    private ProgressDialog mProgressDialog;
+//    private CouponAdapter couponManagerAdapter;
+//    private ListView lvCouponList;
+//    private String status;
+//    private JSONObject jsonData = new JSONObject();
+//    String startDateString, endDateString;
+//
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.layout_coupon_adding_admin);
+//        setControl();
+//        setEvent();
+//    }
+//
+//
+//
+//    protected void setControl() {
+//        ivCouponImg = findViewById(R.id.ivCouponImg);
+//        etDateRange = findViewById(R.id.etDateRange);
+//        btnUploadImg = findViewById(R.id.btnUploadImg);
+//        etCouponType = findViewById(R.id.etCouponType);
+//        etCouponQuantity = findViewById(R.id.etCouponQuantity);
+//        etCouponValue = findViewById(R.id.etCouponValue);
+//        etCouponContent = findViewById(R.id.etCouponContent);
+//        etCouponMinium = findViewById(R.id.etCouponMinium);
+//        swStatus = findViewById(R.id.swStatus);
+//        lvCouponList = findViewById(R.id.lv_couponList);
+//
+//        btnAddCoupon = findViewById(R.id.btnAddCoupon);
+//        ivBack = findViewById(R.id.ivBack);
+//    }
+//
+//
+//
+//
+//    // xử lý kết quả trả về từ việc chọn ảnh
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        // xác định xem kết quả trả về có phải từ việc chọn ảnh trong Gallery không
+//        // xác định xem người dùng có đã chọn một hình ảnh và nhấn ‘OK’ không
+//        // kiểm tra data và data.getData() không phải là null
+//        if(requestCode == GALLERY_REQ_CODE && resultCode == RESULT_OK
+//                && data != null && data.getData() != null )
+//        {
+//            selectedImageUri = data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+//                ivCouponImg.setImageBitmap(bitmap);
+//            }
+//            catch (IOException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//
+//
+//    protected void setEvent() {
+//        mProgressDialog = new ProgressDialog(this);
+//        mProgressDialog.setMessage("Please wait...");
+//
+//
+//
+//        ivBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(CouponAddingAdminActivity.this, CouponListAdminActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        // set sự kiện cho nút Chọn ảnh
+//        btnUploadImg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectImage();
+//            }
+//        });
+//
+//
+//        swStatus.setChecked(false);
+//        status = "unactive";
+//        swStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (swStatus.isChecked()) {
+//                    // The switch is enabled/checked
+//                    status = "active";
+//                    swStatus.setText("Đang chạy");
+//                } else {
+//                    // The switch is disabled/unchecked
+//                    status = "unactive";
+//                    swStatus.setText("Ngưng chạy");
+//                }
+//            }
+//        });
+//
+//
+//        //bấm vào nút Chọn ngày áp dụng khuyến mại
+//        etDateRange = findViewById(R.id.etDateRange);
+//
+//
+//
+//        btnAddCoupon.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onClick(View v) {
+//                // Kiểm tra xem ảnh đã được chọn chưa
+//                if (selectedImageUri == null) {
+//                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
+//                    return;
+//                } else if (etCouponType.getText().toString().isEmpty()) {
+//                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập id sản phẩm", Toast.LENGTH_SHORT).show();
+//                } else if (etCouponValue.getText().toString().isEmpty()) {
+//                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập giá trị sản phẩm", Toast.LENGTH_SHORT).show();
+//                } else if (etCouponContent.getText().toString().isEmpty()) {
+//                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập mô tả sản phẩm", Toast.LENGTH_SHORT).show();
+//                } else if (etCouponMinium.getText().toString().isEmpty()) {
+//                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập giá trị tối thiểu sản phẩm", Toast.LENGTH_SHORT).show();
+//                } else if (etCouponQuantity.getText().toString().isEmpty()) {
+//                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    addCoupon();
+//                }
+//            }
+//        });
+//    }
+//
+//    public void addCoupon() {
+//        mProgressDialog.show();
+//
+//        // đổ data vào khuôn json
+//        try {
+//            jsonData.put("content", etCouponContent.getText().toString());
+//            jsonData.put("status", status.toString());
+//            jsonData.put("type", etCouponType.getText().toString());
+//            jsonData.put("remaining_amount", etCouponValue.getText().toString());
+//            jsonData.put("minimum_value", etCouponMinium.getText().toString());
+//            jsonData.put("quantity", etCouponQuantity.getText().toString());
+//            jsonData.put("start_date", "2024-01-13");
+//            jsonData.put("end_date", "2024-03-01");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        String jsonString = jsonData.toString();
+//        Log.i("XXXXXXX",""+jsonString);
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), jsonString);
+//        // Lấy đường dẫn thực của file ảnh từ Uri
+//        String imagePath = RealPathUtil.getRealPath(this,selectedImageUri);
+//        String[] onlyImagePath = imagePath.split("/");
+//        String lastElement = onlyImagePath[onlyImagePath.length-1];
+//
+//
+//        // Tạo File từ đường dẫn ảnh
+//        File file = new File(imagePath);
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+//
+//        MultipartBody.Part imagePart = MultipartBody.Part.createFormData(Const.KEY_FILE, file.getName(), requestFile);
+//        Log.i("XXXXXXX",""+imagePart+"___"+requestBody+"___"+tokenStaff);
+//        apiService.addCoupon(tokenStaff, imagePart, requestBody).enqueue(new Callback<ApiResponse>() {
+//            @Override
+//            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+//                if (response.isSuccessful()) {
+//                    ApiResponse result = response.body();
+//                    if (result != null){
+//                        Toast.makeText(CouponAddingAdminActivity.this, "Thêm khuyến mại thành công", Toast.LENGTH_SHORT).show();
+//                        mProgressDialog.dismiss();
+//
+//                        getAllCoupon();
+//                        startActivity(new Intent(CouponAddingAdminActivity.this, com.example.n20dccn143_levietthanh.activities.CouponListAdminActivity.class));
+//                    } else {
+//                        Toast.makeText(CouponAddingAdminActivity.this, "result null", Toast.LENGTH_SHORT).show();
+//                        mProgressDialog.dismiss();
+//                    }
+//
+//                } else {
+//                    Toast.makeText(CouponAddingAdminActivity.this,"response false", Toast.LENGTH_SHORT).show();
+//                    mProgressDialog.dismiss();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ApiResponse> call, Throwable t) {
+//                Toast.makeText(CouponAddingAdminActivity.this, ""+ t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+//
+//
+//    private void selectImage() {
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setType("/image/*");
+//        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(intent, GALLERY_REQ_CODE);
+//    }
+//
+//
+//
+//
+//}
+//}

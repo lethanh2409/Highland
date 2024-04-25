@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "879739260597",
+    "project_id": "mobile-app-78dd9",
+    "storage_bucket": "mobile-app-78dd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879739260597:android:7e76ecf95849236fc638fc",
+        "android_client_info": {
+          "package_name": "com.example.n20dccn143_levietthanh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMK_wt0sP9BpAZC8_ZfUqEtYkqUjtXEqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="lightGrey">#cbcccb</color>
+    <color name="darkGrey">#606470</color>
+    <color name="bgColor_l1">#131313</color>
+    <color name="bgColor_l2">#313131</color>
+    <color name="bgColor_l3">#F9F9F9</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="mainColor">#B42429</color>
+    <color name="statusBarColor">#FF0C0602</color>
+    <color name="smallTextColor">#FFA9A9A9</color>
+    <color name="grey">#d3d6db</color>
+    <color name="priceTextColor">#2F4B4E</color>
+    <color name="TextLightColor">#313131</color>
+    <color name="pink">#feb1b1</color>
+    <color name="TextGreyColor">#979797</color>
+    <color name="green">#36C07E</color>
+    <color name="shrine_pink_100">#ffc0cb</color>
+    <color name="shrine_pink_900">#ffb3c0</color>
+    <color name="pearl">#fbfcf8</color>
+
+</resources>
