@@ -44,24 +44,56 @@
 
     <style name="Customer" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
-        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
-        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
-
+<!--        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>-->
+        <item name="materialCalendarTheme">@style/MaterialCalendarTheme</item>
+        <item name="materialTimePickerTheme">@style/AppTheme.MaterialTimePickerTheme</item>
+        <item name="materialCalendarFullscreenTheme">
+            @style/CustomThemeOverlay_MaterialCalendar_Fullscreen
+        </item>
+    </style>
+    <style name="CustomThemeOverlay_MaterialCalendar_Fullscreen" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="materialCalendarStyle">@style/Custom_MaterialCalendar.Fullscreen</item>
     </style>
 
+    <style name="Custom_MaterialCalendar.Fullscreen" parent="@style/Widget.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="android:windowFullscreen">false</item>
+    </style>
     <style name="SpinnerTheme" parent="android:Widget.Material.Spinner.Underlined">
         <item name="android:background">@drawable/spinnerbg</item>
         <item name="android:popupBackground">@drawable/spinnerbg</item>
 
         <item name="android:textAlignment">textStart</item>
     </style>
+
     <style name="AppTheme.MaterialTimePickerTheme" parent="ThemeOverlay.MaterialComponents.TimePicker">
         <item name="colorPrimary">@color/lightGrey</item>
     </style>
-    <style name="MaterialCalendarTheme" parent="Theme.MaterialComponents">
-        <!-- just override the colors used in the default style -->
+
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar"/>
+
+    <style name="roundimageview" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">70dp</item>
+        <item name="cornerSizeBottomRight">70dp</item>
     </style>
 
+    <style name="circularimg" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">10dp</item>
+    </style>
 
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@color/white</item>
+    </style>
 
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Các thuộc tính của chủ đề -->
+        <item name="colorControlNormal">@color/mainColor</item>
+    </style>
+
+    <style name="DateRange" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
 </resources>

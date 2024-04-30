@@ -34,7 +34,7 @@ public interface ApiService {
 
     //http://localhost:9999/api/admin/product/all
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.7:9999/")
+            .baseUrl("http://192.168.52.67:9999/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);

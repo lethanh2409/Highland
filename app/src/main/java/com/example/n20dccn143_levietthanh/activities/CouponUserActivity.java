@@ -151,9 +151,8 @@ public class CouponUserActivity extends AppCompatActivity {
         apiService.getMyCoupon(tokenUser).enqueue(new Callback<ListEntityStatusResponse<CouponDetail>>() {
             @Override
             public void onResponse(Call<ListEntityStatusResponse<CouponDetail>> call, Response<ListEntityStatusResponse<CouponDetail>> response) {
-                Log.i("UUUUUU", "" + response);
                 if (response.isSuccessful()) {
-                    Toast.makeText(CouponUserActivity.this, "getMyCoupon true", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CouponUserActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     ListEntityStatusResponse<CouponDetail> result = response.body();
                     if (result != null) {
                         Toast.makeText(CouponUserActivity.this, "getMyCoupon result notnull", Toast.LENGTH_SHORT).show();
@@ -161,7 +160,6 @@ public class CouponUserActivity extends AppCompatActivity {
                         for (CouponDetail couponDetail: couponList){
                             Coupon coupon =  couponDetail.getCoupon();
                             MyCouponList.add(coupon);
-                            Log.i("NNNNNNN", ""+MyCouponList);
                         }
                         couponAdapter = new CouponAdapter(CouponUserActivity.this, R.layout.item_coupon_user, MyCouponList);
                         lv_listCoupon.setAdapter(couponAdapter);

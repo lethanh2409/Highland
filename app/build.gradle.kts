@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.n20dccn143_levietthanh"
-    compileSdk = 33
+    compileSdk = 31
     compileSdk = 34
 
 
@@ -47,7 +47,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
     implementation ("com.squareup.okhttp3:okhttp:3.14.7")
     implementation ("com.google.code.gson:gson:2.10.1")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.activity:activity:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

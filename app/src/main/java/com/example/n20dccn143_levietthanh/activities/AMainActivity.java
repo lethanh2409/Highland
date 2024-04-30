@@ -19,7 +19,7 @@ public class AMainActivity extends AppCompatActivity {
     Button btnProductManager, btnCouponManager, btnUsingCoupon;
     public static List<ProductCategory> categoryList = new ArrayList<>();
     public static String tokenAdmin = "Bearer "+"eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTM1MDg2OTEsImV4cCI6MTcxNDExMzQ5MSwidXNlcm5hbWUiOiJBRE1JTjIiLCJhdXRob3JpdGllcyI6IkFETUlOIn0.NIJyitsR4qU3avResJhBVxY_uLozMS1zAtM6s9qe1zsS3yJPez_MiW0PjlL03RJR";
-    public static String tokenStaff="Bearer " + "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTM1MjIzMzcsImV4cCI6MTcxNDEyNzEzNywidXNlcm5hbWUiOiJTVEFGRjEiLCJhdXRob3JpdGllcyI6IlNUQUZGIn0.Rwv3_I3Ga-ddId4dMw3uRaQzBow4JQTZ_aHJP5Qz6VDLfTVsqrsoNXMhO3E3Fx74";
+    public static String tokenStaff="Bearer " + "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTQxMTE4OTQsImV4cCI6MTcxNDcxNjY5NCwidXNlcm5hbWUiOiIrODQ5ODc2NTQzMjEiLCJhdXRob3JpdGllcyI6IlNUQUZGIn0.Y79k_gtr4qQdnUUn19csxdTxrmLLiHKrga8JVnfzifOH3d3dOc8Kde5bt3seSOVs";
     public static String tokenUser = "Bearer "+"eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTM5NzMwMTgsImV4cCI6MTcxNDU3NzgxOCwidXNlcm5hbWUiOiJDVVNUT01FUjEiLCJhdXRob3JpdGllcyI6IkNVU1RPTUVSIn0.YxpT0YfapUAMI_MDMaDd1SJzHuOGqXcjHeDdYMl824ucIM4JL9arIhDe_HZjVRBw";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class AMainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         setControl();
         khoiTao();
+        Log.i("EEEEE", ""+categoryList);
         setEvent();
 
     }
@@ -37,7 +38,6 @@ public class AMainActivity extends AppCompatActivity {
         categoryList.add(new ProductCategory("Trà", "tra"));
         categoryList.add(new ProductCategory("Freeze", "freeze"));
         categoryList.add(new ProductCategory("Nước ngọt", "nuoc-ngot"));
-        Log.i("XXXXXXXXXX", ""+categoryList.size());
     }
 
     private void setEvent() {

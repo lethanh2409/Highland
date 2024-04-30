@@ -5,6 +5,7 @@ package com.example.n20dccn143_levietthanh.activities;
 
 
 import static com.example.n20dccn143_levietthanh.activities.AMainActivity.tokenAdmin;
+import static com.example.n20dccn143_levietthanh.activities.AMainActivity.tokenStaff;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,6 +56,13 @@ public class CouponListAdminActivity extends AppCompatActivity {
         svCoupon = findViewById(R.id.svCoupon);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, AMainActivity.class);
+        startActivity(intent);
+    }
+
     private void setEvent() {
 
         btnAddCoupon.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +108,7 @@ public class CouponListAdminActivity extends AppCompatActivity {
 
 
     public static void getAllCoupon() {
-        ApiService.apiService.adminGetAllCoupon(tokenAdmin).enqueue(new Callback<ListEntityStatusResponse<Coupon>>() {
+        ApiService.apiService.adminGetAllCoupon(tokenStaff).enqueue(new Callback<ListEntityStatusResponse<Coupon>>() {
             @Override
             public void onResponse(Call<ListEntityStatusResponse<Coupon>> call, Response<ListEntityStatusResponse<Coupon>> response) {
                 if(response.isSuccessful()){

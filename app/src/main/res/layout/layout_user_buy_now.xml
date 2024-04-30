@@ -201,7 +201,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="right"
-                                android:text="45.000 VND" />
+                                android:text="45000" />
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="right"
-                                android:text="1500" />
+                                android:text="15000" />
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/ll_coupon"
@@ -237,11 +237,11 @@
                                 android:text="Mã giảm giá"/>
 
                             <TextView
-                                android:id="@+id/tv_useValue"
+                                android:id="@+id/tv_coupon"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="right"
-                                android:text="1500" />
+                                android:text="15000" />
                         </LinearLayout>
                     </LinearLayout>
                 </ScrollView>

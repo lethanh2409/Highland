@@ -10,7 +10,7 @@
         android:id="@+id/btnAddCoupon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/icon_add_circle_24"
         app:layout_constraintBottom_toBottomOf="parent"

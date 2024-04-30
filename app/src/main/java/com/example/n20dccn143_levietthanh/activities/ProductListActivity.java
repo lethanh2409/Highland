@@ -57,6 +57,12 @@ public class ProductListActivity extends AppCompatActivity {
         setEvent();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, AMainActivity.class);
+        startActivity(intent);
+    }
 
     private void setEvent() {
         // click vào nút Back trên ActionBar

@@ -35,6 +35,7 @@ import com.example.n20dccn143_levietthanh.functions.RealPathUtil;
 import com.example.n20dccn143_levietthanh.models.Coupon;
 import com.example.n20dccn143_levietthanh.response.ApiResponse;
 import com.example.n20dccn143_levietthanh.response.ListEntityStatusResponse;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -188,15 +189,15 @@ public class CouponAddingAdminActivity extends AppCompatActivity {
                     Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (etCouponType.getText().toString().isEmpty()) {
-                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập id sản phẩm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập id giảm giá", Toast.LENGTH_SHORT).show();
                 } else if (etCouponValue.getText().toString().isEmpty()) {
-                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập giá trị sản phẩm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập giá trị mã giảm giá", Toast.LENGTH_SHORT).show();
                 } else if (etCouponContent.getText().toString().isEmpty()) {
-                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập mô tả sản phẩm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập mô tả mã giảm giá", Toast.LENGTH_SHORT).show();
                 } else if (etCouponMinium.getText().toString().isEmpty()) {
-                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập giá trị tối thiểu sản phẩm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập giá trị tối thiểu để áp dụng mã giảm giá", Toast.LENGTH_SHORT).show();
                 } else if (etCouponQuantity.getText().toString().isEmpty()) {
-                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CouponAddingAdminActivity.this, "Vui lòng nhập tên mã giảm giá", Toast.LENGTH_SHORT).show();
                 } else {
                     addCoupon();
                 }
@@ -205,19 +206,40 @@ public class CouponAddingAdminActivity extends AppCompatActivity {
     }
 
     private void openDatePicker() {
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        MaterialDatePicker<Pair<Long, Long>> picker = builder.setTheme(R.style.MaterialCalendarTheme).build();
+
+        picker.addOnPositiveButtonClickListener(selection -> {
+            // Convert timestamps to Date objects
+            Date startDate = new Date(selection.first);
+            Date endDate = new Date(selection.second);
+
+            // Format dates as strings
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            String startDateStr = format.format(startDate);
+            String endDateStr = format.format(endDate);
+
+            // Set the EditText text
+            etDateRange.setText(startDateStr + " - " + endDateStr);
+        });
+
+        picker.show(getSupportFragmentManager(), picker.toString());
     }
+
 
 
     public void addCoupon() {
         mProgressDialog.show();
-
+        String dateRange = String.valueOf(etDateRange.getText());
+        String[] parts = dateRange.split(" ");
+        String startdate = parts[0];
+        String enddate = parts[1];
         // đổ data vào khuôn json
         try {
             jsonData.put("content", etCouponContent.getText().toString());
             jsonData.put("status", status.toString());
             jsonData.put("type", etCouponType.getText().toString());
-            jsonData.put("remaining_amount", etCouponValue.getText().toString());
+            jsonData.put("use_value", etCouponValue.getText().toString());
             jsonData.put("minimum_value", etCouponMinium.getText().toString());
             jsonData.put("quantity", etCouponQuantity.getText().toString());
             jsonData.put("start_date", "2024-01-13");

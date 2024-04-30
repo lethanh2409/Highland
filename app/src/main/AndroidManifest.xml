@@ -34,8 +34,9 @@
                      android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.ProductEditingActivity"/>
 
-        <activity android:name=".activities.CouponListAdminActivity" />
-        <activity android:name=".activities.CouponAddingAdminActivity"/>
+        <activity android:name=".activities.CouponListAdminActivity"/>
+        <activity android:name=".activities.CouponAddingAdminActivity"
+            />
         <activity android:name=".activities.UserOrderBuyNowActivity"/>
         <activity android:name=".activities.CouponUserActivity"/>
     </application>
