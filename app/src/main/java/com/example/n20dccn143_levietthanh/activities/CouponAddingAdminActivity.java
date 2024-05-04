@@ -19,6 +19,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -62,6 +64,8 @@ import retrofit2.Response;
 public class CouponAddingAdminActivity extends AppCompatActivity {
     private ImageView ivCouponImg, ivBack;
     Button btnUploadImg, btnAddCoupon;
+    com.google.android.material.card.MaterialCardView btnShow;
+    TextView tvSelectStarDate, tvSelectEndDate, tvLine;
 
     private TextInputEditText etCouponType, etCouponQuantity, etCouponValue, etCouponMinium, etCouponContent, etDateRange;
     private SwitchCompat swStatus;
@@ -99,6 +103,12 @@ public class CouponAddingAdminActivity extends AppCompatActivity {
         btnDateRange = findViewById(R.id.btnDateRange);
         btnAddCoupon = findViewById(R.id.btnAddCoupon);
         ivBack = findViewById(R.id.ivBack);
+
+
+        tvSelectStarDate = findViewById(R.id.tv_selectStarDate);
+        tvSelectEndDate = findViewById(R.id.tv_selectEndDate);
+        tvLine = findViewById(R.id.tv_line);
+        btnShow = findViewById(R.id.btn_showDate);
     }
 
 
@@ -173,12 +183,17 @@ public class CouponAddingAdminActivity extends AppCompatActivity {
         btnDateRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDatePicker();
+                openDatePicker(tokenStaff);
             }
         });
 
 
-
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(tokenStaff);
+            }
+        });
 
         btnAddCoupon.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -205,26 +220,7 @@ public class CouponAddingAdminActivity extends AppCompatActivity {
         });
     }
 
-    private void openDatePicker() {
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
-        MaterialDatePicker<Pair<Long, Long>> picker = builder.setTheme(R.style.MaterialCalendarTheme).build();
 
-        picker.addOnPositiveButtonClickListener(selection -> {
-            // Convert timestamps to Date objects
-            Date startDate = new Date(selection.first);
-            Date endDate = new Date(selection.second);
-
-            // Format dates as strings
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String startDateStr = format.format(startDate);
-            String endDateStr = format.format(endDate);
-
-            // Set the EditText text
-            etDateRange.setText(startDateStr + " - " + endDateStr);
-        });
-
-        picker.show(getSupportFragmentManager(), picker.toString());
-    }
 
 
 
@@ -300,6 +296,29 @@ public class CouponAddingAdminActivity extends AppCompatActivity {
     }
 
 
+    private void openDatePicker(String token) {
+        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(new Pair<>(
+                MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                MaterialDatePicker.todayInUtcMilliseconds()
+        )).setTheme(R.style.DateRange).build();
+        materialDatePicker. addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
+            @Override
+            public void onPositiveButtonClick(Pair<Long, Long> selection) {
+                String dateStart = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(selection.first));
+                String dateEnd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(selection.second));
 
+                String showStartDate =  new SimpleDateFormat("MM-dd", Locale.getDefault()).format(new Date(selection.first));
+                String showEndDate =  new SimpleDateFormat("MM-dd", Locale.getDefault()).format(new Date(selection.second));
+
+                tvSelectStarDate.setText(showStartDate);
+                tvSelectEndDate.setText(showEndDate);
+                tvLine.setVisibility(View.VISIBLE);
+                tvSelectEndDate.setVisibility(View.VISIBLE);
+                Log.i("test", dateStart + " " + dateEnd);
+
+            }
+        });
+        materialDatePicker.show(getSupportFragmentManager(), "tag");
+    }
 
 }

@@ -20,7 +20,7 @@ public class AMainActivity extends AppCompatActivity {
     public static List<ProductCategory> categoryList = new ArrayList<>();
     public static String tokenAdmin = "Bearer "+"eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTM1MDg2OTEsImV4cCI6MTcxNDExMzQ5MSwidXNlcm5hbWUiOiJBRE1JTjIiLCJhdXRob3JpdGllcyI6IkFETUlOIn0.NIJyitsR4qU3avResJhBVxY_uLozMS1zAtM6s9qe1zsS3yJPez_MiW0PjlL03RJR";
     public static String tokenStaff="Bearer " + "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTQxMTE4OTQsImV4cCI6MTcxNDcxNjY5NCwidXNlcm5hbWUiOiIrODQ5ODc2NTQzMjEiLCJhdXRob3JpdGllcyI6IlNUQUZGIn0.Y79k_gtr4qQdnUUn19csxdTxrmLLiHKrga8JVnfzifOH3d3dOc8Kde5bt3seSOVs";
-    public static String tokenUser = "Bearer "+"eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTM5NzMwMTgsImV4cCI6MTcxNDU3NzgxOCwidXNlcm5hbWUiOiJDVVNUT01FUjEiLCJhdXRob3JpdGllcyI6IkNVU1RPTUVSIn0.YxpT0YfapUAMI_MDMaDd1SJzHuOGqXcjHeDdYMl824ucIM4JL9arIhDe_HZjVRBw";
+    public static String tokenUser = "Bearer "+"eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTQ1ODYxMjksImV4cCI6MTcxNTE5MDkyOSwidXNlcm5hbWUiOiIrODQ5NzkzNDUxOTAiLCJhdXRob3JpdGllcyI6IkNVU1RPTUVSIn0.EHybDWB3knlYai6LKsAToSqa_eCv6XRtGfEG4SKir9TWyJLf3J5Lc12--yp7LTAF";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

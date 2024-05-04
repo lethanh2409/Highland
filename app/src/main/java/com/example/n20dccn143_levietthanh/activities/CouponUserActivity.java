@@ -115,7 +115,7 @@ public class CouponUserActivity extends AppCompatActivity {
             public void onResponse(Call<ListEntityStatusResponse<Coupon>> call, Response<ListEntityStatusResponse<Coupon>> response) {
                 Log.i("XXXXXX", "" + response);
                 if (response.isSuccessful()) {
-                    Toast.makeText(CouponUserActivity.this, "response true", Toast.LENGTH_SHORT).show();
+
                     ListEntityStatusResponse<Coupon> result = response.body();
                     if (result != null) {
                         List<Coupon> listAllCoupon = result.getData();
@@ -152,10 +152,10 @@ public class CouponUserActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ListEntityStatusResponse<CouponDetail>> call, Response<ListEntityStatusResponse<CouponDetail>> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(CouponUserActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
                     ListEntityStatusResponse<CouponDetail> result = response.body();
                     if (result != null) {
-                        Toast.makeText(CouponUserActivity.this, "getMyCoupon result notnull", Toast.LENGTH_SHORT).show();
+
                         List<CouponDetail> couponList = result.getData();
                         for (CouponDetail couponDetail: couponList){
                             Coupon coupon =  couponDetail.getCoupon();
@@ -184,6 +184,7 @@ public class CouponUserActivity extends AppCompatActivity {
         apiService.customerGetCoupon(tokenUser, coupon_id.toString()).enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                Log.i("XXXX",""+response);
                 if (response.isSuccessful()) {
                     Toast.makeText(CouponUserActivity.this, "response true", Toast.LENGTH_SHORT).show();
                 } else {

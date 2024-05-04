@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.util.Pair;
 
 import com.example.n20dccn143_levietthanh.R;
 import com.example.n20dccn143_levietthanh.adapters.CouponAdapter;
@@ -25,9 +26,14 @@ import com.example.n20dccn143_levietthanh.apis.ApiService;
 import com.example.n20dccn143_levietthanh.models.Coupon;
 import com.example.n20dccn143_levietthanh.models.Product;
 import com.example.n20dccn143_levietthanh.response.ListEntityStatusResponse;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,19 +86,11 @@ public class CouponListAdminActivity extends AppCompatActivity {
             }
         });
         getAllCoupon();
-//        svCoupon.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//        svCoupon.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
+//            public void onClick(View v) {
+//                openDatePicker(tokenStaff);
 //            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                couponManagerAdapter.getFilter().filter(newText);
-//                return true;
-//            }
-//
 //        });
 
 
